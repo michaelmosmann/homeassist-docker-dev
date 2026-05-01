@@ -1,0 +1,2 @@
+# Runtime dependencies for your extension
+# Add packages your integration needs here (they will also be listed in manifest.json)

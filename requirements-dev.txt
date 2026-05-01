@@ -1,0 +1,13 @@
+# Home Assistant testing framework (version tracks HA releases)
+pytest-homeassistant-custom-component>=0.13.0
+
+# Testing
+pytest>=7.4
+pytest-asyncio>=0.23
+pytest-cov>=4.0
+coverage[toml]>=7.0
+
+# Code quality
+ruff>=0.3.0
+mypy>=1.8
+types-PyYAML
