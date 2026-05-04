@@ -1,5 +1,8 @@
-COMPOSE  = docker compose
-SERVICE  = dev
+COMPOSE     = docker compose
+SERVICE     = dev
+UID         := $(shell id -u)
+GID         := $(shell id -g)
+DOCKER_RUN  = $(COMPOSE) run --rm --user $(UID):$(GID) -e HOME=/tmp $(SERVICE)
 
 .PHONY: help build shell test test-cov lint type-check dist clean
 
@@ -18,25 +21,25 @@ build:
 	$(COMPOSE) build
 
 shell:
-	$(COMPOSE) run --rm $(SERVICE) /bin/bash
+	$(DOCKER_RUN) /bin/bash
 
 test:
-	$(COMPOSE) run --rm $(SERVICE) pytest tests/ -v
+	$(DOCKER_RUN) pytest tests/ -v
 
 test-cov:
-	$(COMPOSE) run --rm $(SERVICE) pytest tests/ -v \
+	$(DOCKER_RUN) pytest tests/ -v \
 	    --cov=custom_components \
 	    --cov-report=term-missing \
 	    --cov-report=html
 
 lint:
-	$(COMPOSE) run --rm $(SERVICE) ruff check src/ tests/
+	$(DOCKER_RUN) ruff check src/ tests/
 
 type-check:
-	$(COMPOSE) run --rm $(SERVICE) mypy src/
+	$(DOCKER_RUN) mypy src/
 
 dist:
-	$(COMPOSE) run --rm $(SERVICE) bash /workspace/scripts/build.sh
+	$(DOCKER_RUN) bash /workspace/scripts/build.sh
 
 clean:
 	rm -rf dist/ .coverage htmlcov/ .mypy_cache/ .pytest_cache/
