@@ -2,6 +2,12 @@
 
 A Docker-based development environment for building and testing Home Assistant custom integrations in Python. Nothing needs to be installed on the host machine beyond Docker.
 
+## local dev
+
+sudo apt install python3-virtualenv
+python3 -m venv .venv
+source .venv/bín/activate
+
 ## Structure
 
 ```
