@@ -29,7 +29,7 @@ class MyIntegrationSensor(SensorEntity):
         self._config = config
         self._attr_unique_id = f"{entry_id}_sensor"
         self._attr_name = config.get("name", "My Sensor")
-        self._attr_native_value = None
+        self._attr_native_value = 42
 
     async def async_update(self) -> None:
         """Fetch new state data for the sensor."""
